@@ -18,11 +18,15 @@ public class PostService {
     private MongoTemplate mongoTemplate;
 
 	@Autowired
-	private PostRepository PostRepository;
+	private PostRepository postRepository;
 	
 	
 	public Post findById(String id) {
-		Optional<Post> Post = PostRepository.findById(id);
+		Optional<Post> Post = postRepository.findById(id);
 		return Post.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+	}
+	
+	public List<Post> findByTile(String text){
+		return postRepository.findByTitleContainingIgnoreCase(text);
 	}
 }
